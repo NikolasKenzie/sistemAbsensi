@@ -1,0 +1,197 @@
+/* Container utama */
+.employee-data-container {
+    font-family: 'Segoe UI', sans-serif;
+    padding: 20px;
+    background: #f4f6f8;
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* Filter section */
+.employee-data-filters {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+}
+
+.employee-data-filters h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.employee-data-filters form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.employee-data-filters input,
+.employee-data-filters select {
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.employee-data-filters input:focus,
+.employee-data-filters select:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.employee-data-filters button {
+    padding: 8px 14px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.employee-data-filters button:hover {
+    background-color: #0056b3;
+}
+
+/* Tabel data */
+.employee-data-table-wrapper {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    overflow-x: auto;
+}
+
+.employee-data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.employee-data-table th {
+    padding: 10px 12px;
+    background-color: aliceblue;
+    font-size: 14px;
+}
+
+
+.employee-data-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+.employee-data-table th {
+    background: #f1f3f5;
+    text-align: left;
+    font-weight: 600;
+}
+
+.employee-data-table tr:hover {
+    background-color: #f9fafb;
+}
+/* Overlay gelap */
+.employee-detail-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+/* Card Popup */
+.employee-detail-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: fadeIn 0.25s ease-in-out;
+  overflow-x: auto; 
+  text-align: center;
+}
+
+/* Judul popup */
+.employee-detail-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.employee-detail-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.employee-detail-table-wrapper {
+  overflow-x: auto; /* Scroll horizontal kalau panjang */
+}
+
+.employee-detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 500px; /* Supaya ada scroll kalau kecil */
+}
+
+.employee-detail-table th,
+.employee-detail-table td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.employee-detail-table th {
+  background-color: #f9f9f9;
+  font-weight: 600;
+  color: #555;
+}
+
+.employee-detail-actions {
+  margin-top: 16px;
+  text-align: right;
+}
+
+.btn-close-detail {
+  background-color: #f5f5f5;
+  color: #333;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-close-detail:hover {
+  background-color: #ddd;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+
+/* Responsif */
+@media (max-width: 600px) {
+    .employee-data-filters form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}

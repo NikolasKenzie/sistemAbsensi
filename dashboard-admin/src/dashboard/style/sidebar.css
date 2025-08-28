@@ -1,0 +1,26 @@
+.container-sidebar {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    height: 100vh;
+    
+}
+.home,
+.presence,
+.employee {
+    max-height: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+.home:hover,
+.presence:hover,
+.employee:hover {
+    transition: 200ms;
+    color: rgb(144, 144, 238);
+}

@@ -1,0 +1,73 @@
+.popup-overlay-absentsystem {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-card-absentsystem {
+    background: #fff;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    padding: 30px;
+    border-radius: 15px;
+    width: 400px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.3s ease;
+}
+
+.popup-photo img {
+    width: 120px;
+    height: 120px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.popup-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.popup-data h2,
+.popup-data p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.value {
+    font-weight: bold;
+}
+
+.status.hadir {
+    color: green;
+    font-weight: bold;
+}
+
+.status.izin {
+    color: orange;
+    font-weight: bold;
+}
+
+.status.alpha {
+    color: red;
+    font-weight: bold;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
