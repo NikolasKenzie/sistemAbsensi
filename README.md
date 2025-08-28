@@ -1,5 +1,7 @@
 =======================================================================
 !this is indonesian language!
+
+
 jujur gua ga tau cara dokumentasin ini projek ini buat latihan aja
 
 intinya ikutin command gua aja nanti ngerti kok hehe :v
