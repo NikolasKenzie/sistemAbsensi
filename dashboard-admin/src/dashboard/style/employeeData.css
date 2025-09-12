@@ -55,6 +55,111 @@
     background-color: #0056b3;
 }
 
+/* verify */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Kotak popup di tengah */
+.popup-content {
+    position: relative;
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    animation: fadeIn 0.3s ease;
+}
+
+
+.popup-title {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-align: center;
+    color: #333;
+}
+
+
+.verify-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-verify {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    outline: none;
+    font-size: 1rem;
+    transition: border 0.2s ease;
+}
+
+.input-verify:focus {
+    border: 1px solid #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Tombol submit */
+.button-submit-verify {
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+}
+
+.button-submit-verify:hover {
+    background: #0056b3;
+}
+
+
+.button-close {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.2s ease;
+}
+
+.button-close:hover {
+    color: #333;
+}
+
+/* Animasi popup */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
 /* Tabel data */
 .employee-data-table-wrapper {
     background: white;
@@ -89,102 +194,122 @@
 
 .employee-data-table tr:hover {
     background-color: #f9fafb;
+    cursor: pointer;
 }
+
 /* Overlay gelap */
 .employee-detail-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
 }
 
 /* Card Popup */
 .employee-detail-card {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 600px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  animation: fadeIn 0.25s ease-in-out;
-  overflow-x: auto; 
-  text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.25s ease-in-out;
+    overflow-x: auto;
+    text-align: center;
 }
 
 /* Judul popup */
 .employee-detail-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
 }
 
 .employee-detail-card {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 600px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  animation: fadeIn 0.2s ease-in-out;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.2s ease-in-out;
 }
 
 .employee-detail-table-wrapper {
-  overflow-x: auto; /* Scroll horizontal kalau panjang */
+    overflow-x: auto;
+    /* Scroll horizontal kalau panjang */
 }
 
 .employee-detail-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 500px; /* Supaya ada scroll kalau kecil */
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 500px;
+    /* Supaya ada scroll kalau kecil */
 }
 
 .employee-detail-table th,
 .employee-detail-table td {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
-  text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
 }
 
 .employee-detail-table th {
-  background-color: #f9f9f9;
-  font-weight: 600;
-  color: #555;
+    background-color: #f9f9f9;
+    font-weight: 600;
+    color: #555;
+}
+.employee-detail-action {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 20px;
+}
+.employee-detail-close {
+    margin-top: 16px;
+    text-align: right;
 }
 
-.employee-detail-actions {
-  margin-top: 16px;
-  text-align: right;
+.btn-detail-action {
+    background-color: #cacaca;
+    color: #333;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
-.btn-close-detail {
-  background-color: #f5f5f5;
-  color: #333;
-  padding: 8px 14px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.btn-close-detail:hover {
-  background-color: #ddd;
+.btn-detail-action:hover {
+    background-color: #ddd;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 

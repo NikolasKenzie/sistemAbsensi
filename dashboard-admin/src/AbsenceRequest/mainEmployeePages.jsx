@@ -9,7 +9,7 @@ export default function AbsentRequest() {
     return (
         <div className="main-container">
             <div className="container-option">
-                <h1>Hai     ada yang ingin disampaikan?</h1>
+                <h1>Hai ada yang ingin disampaikan?</h1>
                 <FormAbsent getName={getName} getEmail={getEmail} setPopUpSickNotification={setPopUpSickNotification} setPopUpPermitNotification={setPopUpPermitNotification} />
             </div>
             {popUpSickNotification === false ? '' : <SickNotification setPopUpSickNotification={setPopUpSickNotification} />}

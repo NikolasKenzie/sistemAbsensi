@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import '../style/employeeData.css'
-import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
+
+
 
 export default function EmployeeData() {
 
@@ -10,7 +12,9 @@ export default function EmployeeData() {
     const [reqData, setReqData] = useState(APILink) // FERRARI WIN
     const [employeeDataLog, setEmployeeDataLog] = useState([]);
     const [showEmployeeCard, setShowEmployeeCard] = useState(false)
-    
+    const [showVerify, setShowVerify] = useState(false)
+    const [targetPath, setTargetPath] = useState('');
+
     useEffect(() => {
         getDataEmployees()
     }, [reqData])
@@ -28,8 +32,6 @@ export default function EmployeeData() {
     return (
         <div className="employee-data-container">
 
-        
-
             <EmployeeDataFilters
                 APIKEY={APIKEY}
                 setReqData={setReqData}
@@ -38,25 +40,34 @@ export default function EmployeeData() {
                 setEmployeesData={setEmployeesData}
                 getDataEmployees={getDataEmployees}
             />
-            
 
-            <TableEmployeeData 
-                employeesData={employeesData} 
-                APIKEY={APIKEY}
-                setEmployeeDataLog={setEmployeeDataLog} 
-                setShowEmployeeCard={setShowEmployeeCard} 
+            <AddEmployeeButton
+                setShowVerify={setShowVerify}
+                setTargetPath={setTargetPath}
             />
-            
-            {showEmployeeCard == false ? '' 
-            
-            : 
-            <EmployeeCardDetail 
-                employeesData={employeesData} 
-                employeesDataLog={employeeDataLog} 
-                setShowEmployeeCard={setShowEmployeeCard}/>
-            
+
+            {showVerify == false ? '' :
+                <Verify setShowVerify={setShowVerify} employeeDataLog={employeeDataLog}
+                    targetPath={targetPath} />
             }
 
+            <TableEmployeeData
+                employeesData={employeesData}
+                APIKEY={APIKEY}
+                setEmployeeDataLog={setEmployeeDataLog}
+                setShowEmployeeCard={setShowEmployeeCard}
+            />
+
+            {showEmployeeCard == false ? ''
+                :
+                <EmployeeCardDetail
+                    employeesData={employeesData}
+                    employeeDataLog={employeeDataLog}
+                    setShowEmployeeCard={setShowEmployeeCard}
+                    setShowVerify={setShowVerify}
+                    setTargetPath={setTargetPath} />
+
+            }
         </div>
     )
 }
@@ -100,9 +111,82 @@ function EmployeeDataFilters({ APIKEY, setReqData, setEmployeesData }) {
                     </select>
                     <button type="submit" onClick={handleFilterSubmmit}>Cari</button>
                 </form>
+
             </div>
         </>
     )
+}
+function AddEmployeeButton({ setShowVerify, setTargetPath }) {
+    function handleClickAdd(path) {
+        setTargetPath(path)
+        setShowVerify(true)
+    }
+    return (
+        <>
+            <button onClick={() => handleClickAdd('/AddEmployee')}>Tambah Karyawan</button>
+        </>
+    )
+}
+
+function Verify({ setShowVerify, targetPath }) {
+    const emailAdmin = sessionStorage.getItem('email')
+    const [inputValue, setInputValue] = useState('');
+    const navigate = useNavigate();
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        if (inputValue.trim() == '') return;
+
+        const data = {
+            emailAdmin: emailAdmin,
+            password: inputValue,
+        }
+        //fetch
+        try {
+            const sendData = await fetch("http://localhost/API_ptmakmur/verifyAccess.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            const res = await sendData.json()
+            if (res.status === true) {
+                sessionStorage.setItem('isVerify', true)
+                setShowVerify(false)
+                navigate(targetPath)
+
+                // navigate('/AddEmployee')
+            }
+            if (res.status === false) {
+                alert("Kata sandi salah!")
+                return;
+            }
+        } catch (error) {
+            console.log("error=>", error)
+        }
+    }
+
+    return (
+        <div className="popup-overlay">
+            <div className="popup-content">
+                <h3 className="popup-title">Verifikasi Akses</h3>
+                <form className="verify-form" onSubmit={handleSubmit}>
+                    <input
+                        className="input-verify"
+                        placeholder="Masukkan password"
+                        type="password"
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                    />
+                    <button type="submit" className="button-submit-verify">
+                        Submit
+                    </button>
+                </form>
+                <button className="button-close" onClick={() => setShowVerify(false)}>×</button>
+            </div>
+        </div>
+    );
 }
 
 function TableEmployeeData({ employeesData, setEmployeeDataLog, setShowEmployeeCard }) {
@@ -125,6 +209,7 @@ function TableEmployeeData({ employeesData, setEmployeeDataLog, setShowEmployeeC
                             <th>No telp</th>
                             <th>departement id</th>
                             <th>Jabatan</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -136,6 +221,7 @@ function TableEmployeeData({ employeesData, setEmployeeDataLog, setShowEmployeeC
                                 <td>{emp.phone_number}</td>
                                 <td>{emp.departement_id}</td>
                                 <td>{emp.job_position}</td>
+
                             </tr>
                         ))}
                     </tbody>
@@ -144,10 +230,17 @@ function TableEmployeeData({ employeesData, setEmployeeDataLog, setShowEmployeeC
         </>
     )
 }
-function EmployeeCardDetail({ employeesDataLog, setShowEmployeeCard }) {
+function EmployeeCardDetail({ employeeDataLog, setShowEmployeeCard, setShowVerify, setTargetPath }) {
 
+    function handleClickAction(id) {
+        setTargetPath(`/EditEmployee/${id}`)
+        setShowEmployeeCard(false)
+        setShowVerify(true)
+        
+    }
+    
     return (
-    <div className="employee-detail-overlay">
+        <div className="employee-detail-overlay">
             <div className="employee-detail-card">
                 <h3>Detail Karyawan</h3>
 
@@ -156,51 +249,65 @@ function EmployeeCardDetail({ employeesDataLog, setShowEmployeeCard }) {
                         <tbody>
                             <tr>
                                 <th>ID</th>
-                                <td>{employeesDataLog.id}</td>
+                                <td>{employeeDataLog.id}</td>
                             </tr>
                             <tr>
                                 <th>ID Card</th>
-                                <td>{employeesDataLog.id_card}</td>
+                                <td>{employeeDataLog.id_card}</td>
                             </tr>
                             <tr>
                                 <th>Nama</th>
-                                <td>{employeesDataLog.name}</td>
+                                <td>{employeeDataLog.name}</td>
                             </tr>
                             <tr>
                                 <th>Gender</th>
-                                <td>{employeesDataLog.gender}</td>
+                                <td>{employeeDataLog.gender}</td>
                             </tr>
                             <tr>
                                 <th>Tanggal Lahir</th>
-                                <td>{employeesDataLog.birth_date}</td>
+                                <td>{employeeDataLog.birth_date}</td>
                             </tr>
                             <tr>
                                 <th>Email</th>
-                                <td>{employeesDataLog.email}</td>
+                                <td>{employeeDataLog.email}</td>
                             </tr>
                             <tr>
                                 <th>Nomor Telepon</th>
-                                <td>{employeesDataLog.phone_number}</td>
+                                <td>{employeeDataLog.phone_number}</td>
                             </tr>
                             <tr>
                                 <th>Posisi</th>
-                                <td>{employeesDataLog.job_position}</td>
+                                <td>{employeeDataLog.job_position}</td>
                             </tr>
                             <tr>
                                 <th>Departemen</th>
-                                <td>{employeesDataLog.departement_id}</td>
+                                <td>{employeeDataLog.departement_id}</td>
                             </tr>
                             <tr>
                                 <th>Gaji</th>
-                                <td>{employeesDataLog.salary}</td>
+                                <td>{employeeDataLog.salary}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+                <div className='employee-detail-action'>
+                    <button
+                        className='btn-detail-action'
+                        onClick={() => handleClickAction(employeeDataLog.id)}
+                    >
+                        Edit
+                    </button>
+                    <button
+                        className='btn-detail-action'
 
-                <div className="employee-detail-actions">
-                    <button className="btn-close-detail" onClick={() =>  setShowEmployeeCard(false)}>Tutup</button>
+                    >
+                        Hapus
+                    </button>
                 </div>
+                <div className="employee-detail-close">
+                    <button className="btn-detail-action" onClick={() => setShowEmployeeCard(false)}>Tutup</button>
+                </div>
+
             </div>
         </div>
     )

@@ -58,8 +58,8 @@ export default function Presence() {
                 urlEmployeeStatus={urlEmployeeStatus}
                 setUrlEmployeeStatus={setUrlEmployeeStatus}
             />
-
-            <TablePresence employeeStatus={employeeStatus} />
+            {employeeStatus.length == 0 ? 'blm ada karyawan yang hadir' : <TablePresence employeeStatus={employeeStatus} />}
+            
         </div>
     );
 }
