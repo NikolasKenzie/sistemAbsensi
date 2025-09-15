@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function EmployeeData() {
 
-    const APIKEY = 'f13b2' // jan lupa di .env sebelum di git push ya sayang <3
+    const APIKEY = 'f13b2'
     const APILink = `http://localhost/API_ptmakmur/employeesData.php?apikey=${APIKEY}`;
     const [employeesData, setEmployeesData] = useState([])
     const [reqData, setReqData] = useState(APILink) // FERRARI WIN
@@ -66,7 +66,6 @@ export default function EmployeeData() {
                     setShowEmployeeCard={setShowEmployeeCard}
                     setShowVerify={setShowVerify}
                     setTargetPath={setTargetPath} />
-
             }
         </div>
     )
